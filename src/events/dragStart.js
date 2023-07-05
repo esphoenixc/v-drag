@@ -7,8 +7,17 @@ import eventListener from "../utils/eventListener";
 import updateMousePosition from "../utils/updateMousePosition";
 import vueDragEvent from "../utils/vueDragEvent";
 
-export default function (grabElement, moveElement, axis, snap, e) {
+export default function (
+  grabElement,
+  moveElement,
+  axis,
+  snap,
+  scrollEffect,
+  e
+) {
   e.preventDefault();
+
+  window.data.scrollEffect = scrollEffect;
 
   // Store elements
   window.data.grab = grabElement;
