@@ -1,11 +1,11 @@
-import dragMove from './dragMove';
+import dragMove from "./dragMove";
 
-import getTransformValue from '../utils/getTransformValue';
-import moveElementTransform from '../utils/moveElementTransform';
-import returnPositionString from '../utils/returnPositionString';
-import eventListener from '../utils/eventListener';
-import updateMousePosition from '../utils/updateMousePosition';
-import vueDragEvent from '../utils/vueDragEvent';
+import getTransformValue from "../utils/getTransformValue";
+import moveElementTransform from "../utils/moveElementTransform";
+import returnPositionString from "../utils/returnPositionString";
+import eventListener from "../utils/eventListener";
+import updateMousePosition from "../utils/updateMousePosition";
+import vueDragEvent from "../utils/vueDragEvent";
 
 export default function (grabElement, moveElement, axis, snap, e) {
   e.preventDefault();
@@ -33,21 +33,21 @@ export default function (grabElement, moveElement, axis, snap, e) {
   const matrix = window.getComputedStyle(window.data.move).transform;
 
   // Store matrix value
-  if (matrix === 'none') {
+  if (matrix === "none") {
     window.data.matrix = false;
   } else {
     window.data.matrix = matrix.match(/\d([^,]*,){4}/g);
   }
 
   // Apply transform to the move element
-  const left = getTransformValue(matrix, 'left');
-  const top = getTransformValue(matrix, 'top');
+  const left = getTransformValue(matrix, "left");
+  const top = getTransformValue(matrix, "top");
 
   // Replace left and top properties with transform
   moveElementTransform(
     returnPositionString(window.data.matrix, left, top),
     0,
-    0,
+    0
   );
 
   window.data.matrixX = left;
@@ -57,10 +57,10 @@ export default function (grabElement, moveElement, axis, snap, e) {
   window.data.grab.classList.add(window.data.class.down);
 
   // Vue event on drag down
-  vueDragEvent(moveElement, 'down');
-  vueDragEvent(moveElement, 'start');
+  vueDragEvent(moveElement, "down");
+  vueDragEvent(moveElement, "start");
 
   // Add events to move drag
-  eventListener(['mousemove', 'touchmove'], updateMousePosition);
-  eventListener(['mousemove', 'touchmove'], dragMove);
+  // eventListener(['mousemove', 'touchmove'], updateMousePosition);
+  eventListener(["mousemove", "touchmove"], dragMove);
 }
